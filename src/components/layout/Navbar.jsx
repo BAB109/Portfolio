@@ -29,13 +29,13 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { num: 'I', label: 'Home', href: '#home', id: 'home' },
-    { num: 'II', label: 'About', href: '#about', id: 'about' },
-    { num: 'III', label: 'Skills', href: '#skills', id: 'skills' },
-    { num: 'IV', label: 'Projects', href: '#projects', id: 'projects' },
-    { num: 'V', label: 'Education', href: '#education', id: 'education' },
-    { num: 'VI', label: 'Achievements', href: '#achievements', id: 'achievements' },
-    { num: 'VII', label: 'Contact', href: '#contact', id: 'contact' },
+    { label: 'Home', href: '#home', id: 'home' },
+    { label: 'About', href: '#about', id: 'about' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Projects', href: '#projects', id: 'projects' },
+    { label: 'Education', href: '#education', id: 'education' },
+    { label: 'Achievements', href: '#achievements', id: 'achievements' },
+    { label: 'Contact', href: '#contact', id: 'contact' },
   ];
 
   return (
