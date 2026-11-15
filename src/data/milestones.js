@@ -8,7 +8,7 @@ export const educationTimeline = [
     status: "Currently Pursuing (Year 2)",
     grade: "CGPA: 7.91 / 10",
     description:
-      "Rigorous undergraduate engineering program centered on systems architecture, algorithmic problem solving, database management, and operating systems.",
+      "Undergraduate engineering program centered on systems architecture, algorithmic problem solving, database management, and operating systems.",
     coursework: [
       "Data Structures & Algorithms",
       "Object-Oriented Programming (C++)",
@@ -21,22 +21,6 @@ export const educationTimeline = [
       "Active participant in collegiate coding and cybersecurity clubs",
       "Competed in the CBIT DDC Cybersecurity Capture The Flag (CTF) Competition"
     ]
-  },
-  {
-    id: "new-vision-inter",
-    institution: "New Vision Junior College",
-    location: "Khammam, Telangana",
-    degree: "Intermediate Education — MPC",
-    period: "2022 — 2024",
-    status: "Completed",
-    grade: "Strong Foundation in Mathematics & Physical Sciences",
-    description:
-      "Higher secondary education with a rigorous analytical focus on Mathematics, Physics, and Chemistry.",
-    coursework: ["Advanced Mathematics", "Physics", "Chemistry"],
-    highlights: [
-      "Developed strong mathematical foundations for algorithmic reasoning",
-      "Excellence in analytical problem-solving and logic formulation"
-    ]
   }
 ];
 
@@ -44,15 +28,15 @@ export const codingMilestones = [
   {
     id: "leetcode",
     platform: "LeetCode",
-    title: "140+ DSA Problems Solved",
+    title: "140+ Problems Solved on LeetCode",
     metric: "140+",
     metricLabel: "Problems Solved",
     status: "Active Solver",
     language: "Primary: C++",
     description:
-      "Consistent practice in algorithmic problem solving covering Arrays, Strings, Linked Lists, Trees, Graphs, Two Pointers, and Dynamic Programming.",
+      "Consistent practice in algorithmic problem solving covering Arrays, Strings, Linked Lists, Trees, Graphs, Two Pointers, and Dynamic Programming with an emphasis on optimal time and space complexity.",
     tags: ["Algorithms", "Data Structures", "C++", "Optimization"],
-    profileUrl: "https://leetcode.com/u/BAB109_1/",
+    profileUrl: "https://leetcode.com/u/BAB109/",
     verified: true
   }
 ];

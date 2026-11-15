@@ -57,7 +57,7 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const categoryVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
@@ -68,7 +68,7 @@ const cardVariants = {
 
 export default function Skills() {
   const shouldReduceMotion = useReducedMotion();
-  const viewportOpts = { once: true, amount: 0.15 };
+  const viewportOpts = { once: true, amount: 0.1 };
 
   return (
     <section id="skills" className="py-24 relative z-10">
@@ -98,14 +98,15 @@ export default function Skills() {
 
           {/* Supporting Text */}
           <p className="mt-4 text-[#94A3B8] text-base sm:text-lg max-w-2xl font-light leading-relaxed">
-            A structured breakdown of my technical toolkit &mdash; organized strictly by
-            hands-on engineering independence, practical application, and active systems research.
+            A structured breakdown of my technical toolkit &mdash; organized by
+            hands-on engineering independence, practical application, and active exploration.
           </p>
         </motion.div>
 
-        {/* ── 3-Tier Skills Grid ───────────────────────────────── */}
+        {/* ── Vertical Skill Categories Stack ──────────────────── */}
+        {/* Strictly vertical categories, one below another on all viewports */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8 items-stretch"
+          className="space-y-8"
           variants={containerVariants}
           initial={shouldReduceMotion ? 'visible' : 'hidden'}
           whileInView="visible"
@@ -114,78 +115,77 @@ export default function Skills() {
           {skillTiers.map((tier) => (
             <motion.div
               key={tier.id}
-              variants={cardVariants}
-              whileHover={shouldReduceMotion ? {} : { y: -4 }}
-              transition={{ duration: 0.25 }}
-              className={`p-6 sm:p-7 rounded-2xl bg-[#101D32]/70 backdrop-blur-sm
+              variants={categoryVariants}
+              className={`p-6 sm:p-8 rounded-2xl bg-[#101D32]/70 backdrop-blur-sm
                          border border-[rgba(148,163,184,0.15)] ${tier.borderHover}
-                         flex flex-col justify-between transition-all duration-300 shadow-lg`}
+                         transition-all duration-300 shadow-lg`}
             >
-              <div>
-                {/* Card Top Row */}
-                <div className="flex items-center justify-between gap-3 mb-3">
-                  <span
-                    className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold"
-                    style={{
-                      backgroundColor: `${tier.accent}15`,
-                      color: tier.accent,
-                      border: `1px solid ${tier.accent}35`,
-                    }}
-                  >
-                    {tier.tier}
-                  </span>
-                  <span className="text-[11px] font-mono text-[#94A3B8]">
-                    {tier.skills.length} technologies
-                  </span>
+              {/* Category Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[rgba(148,163,184,0.1)]">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="px-3 py-1 rounded-md text-xs font-mono font-semibold"
+                      style={{
+                        backgroundColor: `${tier.accent}15`,
+                        color: tier.accent,
+                        border: `1px solid ${tier.accent}35`,
+                      }}
+                    >
+                      {tier.tier}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-xs font-mono text-[#94A3B8]">
+                      <CheckCircle2 className="w-3.5 h-3.5" style={{ color: tier.accent }} />
+                      {tier.badge}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#94A3B8] font-light leading-relaxed mt-2 max-w-3xl">
+                    {tier.description}
+                  </p>
                 </div>
 
-                {/* Category Description */}
-                <p className="text-xs sm:text-sm text-[#94A3B8] font-light leading-relaxed mt-2 min-h-[38px]">
-                  {tier.description}
-                </p>
-
-                {/* Skills Items List */}
-                <div className="mt-6 space-y-2.5">
-                  {tier.skills.map((skill) => {
-                    const IconComponent = ICON_MAP[skill.icon] || Code2;
-                    return (
-                      <div
-                        key={skill.name}
-                        className="p-3 rounded-xl bg-[#0B172B]/60 border border-[rgba(148,163,184,0.1)]
-                                   hover:border-[rgba(148,163,184,0.3)] hover:bg-[#0B172B]/90
-                                   transition-all duration-200 group flex items-start gap-3"
-                      >
-                        <div
-                          className="p-2 rounded-lg flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
-                          style={{
-                            backgroundColor: `${tier.accent}15`,
-                            color: tier.accent,
-                            border: `1px solid ${tier.accent}30`,
-                          }}
-                        >
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-[#F1F5F9] group-hover:text-white transition-colors truncate">
-                            {skill.name}
-                          </p>
-                          <p className="text-[11px] font-mono text-[#94A3B8] mt-0.5 leading-snug">
-                            {skill.note}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <span className="text-xs font-mono text-[#94A3B8] self-start sm:self-center px-2.5 py-1 rounded bg-[#0B172B]/60 border border-[rgba(148,163,184,0.1)]">
+                  {tier.skills.length} technologies
+                </span>
               </div>
 
-              {/* Card Footer */}
-              <div className="mt-6 pt-4 border-t border-[rgba(148,163,184,0.12)] flex items-center justify-between text-[11px] font-mono text-[#94A3B8]">
-                <span className="flex items-center gap-1.5 font-medium" style={{ color: tier.accent }}>
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>{tier.badge}</span>
-                </span>
-                <span className="text-[#94A3B8]/60">Verified scope</span>
+              {/* Technologies: Horizontal Chips / Badges with natural wrapping */}
+              <div className="mt-6 flex flex-wrap gap-2.5 sm:gap-3">
+                {tier.skills.map((skill) => {
+                  const IconComponent = ICON_MAP[skill.icon] || Code2;
+                  return (
+                    <div
+                      key={skill.name}
+                      className="group inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl
+                                 bg-[#0B172B]/75 border border-[rgba(148,163,184,0.15)]
+                                 hover:border-[#48E6C1]/50 hover:bg-[#0B172B]
+                                 hover:shadow-[0_0_15px_-3px_rgba(72,230,193,0.15)]
+                                 transition-all duration-200 cursor-default"
+                    >
+                      <div
+                        className="p-1.5 rounded-lg flex-shrink-0 transition-transform duration-200 group-hover:scale-110"
+                        style={{
+                          backgroundColor: `${tier.accent}15`,
+                          color: tier.accent,
+                          border: `1px solid ${tier.accent}30`,
+                        }}
+                      >
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+
+                      <div className="flex flex-col">
+                        <span className="text-xs sm:text-sm font-semibold text-[#F1F5F9] group-hover:text-white transition-colors">
+                          {skill.name}
+                        </span>
+                        {skill.note && (
+                          <span className="text-[10px] font-mono text-[#94A3B8] group-hover:text-[#94A3B8]/90 transition-colors">
+                            {skill.note}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           ))}

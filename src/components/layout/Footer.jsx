@@ -76,10 +76,9 @@ export default function Footer() {
 
           <a
             href={personalInfo.resumePath}
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Developer_Resume.pdf"
             className="hover:text-[#48E6C1] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#48E6C1] rounded py-1 px-1.5"
-            aria-label="Resume PDF"
+            aria-label="Download Resume PDF"
           >
             Resume
           </a>

@@ -67,11 +67,6 @@ export const skillTiers = [
         icon: "Network"
       },
       {
-        name: "Authentication",
-        note: "JWT tokens, password hashing & route guards",
-        icon: "ShieldCheck"
-      },
-      {
         name: "SQL",
         note: "Relational joins, constraints & data modeling",
         icon: "Database"
@@ -104,6 +99,16 @@ export const skillTiers = [
     iconBg: "bg-[#A78BFA]/10 text-[#A78BFA] border-[#A78BFA]/20",
     skills: [
       {
+        name: "Zod",
+        note: "Runtime schema validation & type inference",
+        icon: "CheckSquare"
+      },
+      {
+        name: "JWT Authentication",
+        note: "Token-based auth flows & route security",
+        icon: "ShieldCheck"
+      },
+      {
         name: "Redis",
         note: "In-memory caching & session management",
         icon: "Zap"
@@ -112,11 +117,6 @@ export const skillTiers = [
         name: "Docker",
         note: "Containerization basics & isolated environments",
         icon: "Container"
-      },
-      {
-        name: "Zod",
-        note: "Runtime schema validation & type inference",
-        icon: "CheckSquare"
       },
       {
         name: "System Design",

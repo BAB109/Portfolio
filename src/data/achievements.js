@@ -8,7 +8,7 @@ export const achievements = [
     badge: "140+ Solved",
     description: "Consistent problem solver focused on Data Structures, Algorithms, Arrays, Trees, Dynamic Programming, and Graph theory with an emphasis on optimal time/space complexity.",
     tags: ["Algorithms", "Data Structures", "C++", "Optimization"],
-    link: "https://leetcode.com/u/BAB109_1/",
+    link: "https://leetcode.com/u/BAB109/",
     isExternal: true
   },
   {

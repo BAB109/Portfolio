@@ -118,7 +118,7 @@ export default function Contact() {
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#48E6C1] text-[#0B172B] font-bold text-xs hover:bg-[#2BCFA9] hover:shadow-[0_0_15px_rgba(72,230,193,0.3)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#48E6C1]"
               >
                 <Mail className="w-3.5 h-3.5" />
-                <span>Compose</span>
+                <span>Send Me an Email</span>
               </a>
 
               <button

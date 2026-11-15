@@ -1,17 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, FileDown } from 'lucide-react';
 import { personalInfo } from '../../data/config';
+import { useRouter, Link } from '../../router';
 
 export default function Navbar() {
+  const { path } = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  const isProjectsPage = path === '/projects';
+
+  const currentSection = isProjectsPage ? 'projects' : activeSection;
+
   useEffect(() => {
+    if (isProjectsPage) return;
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      // Section scroll spy
+      // Section scroll spy on homepage
       const sections = ['home', 'about', 'skills', 'projects', 'education', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
@@ -26,30 +34,29 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isProjectsPage]);
 
+  // Main navigation items as requested: Home, About, Skills, Projects, Contact
   const navLinks = [
-    { label: 'Home', href: '#home', id: 'home' },
-    { label: 'About', href: '#about', id: 'about' },
-    { label: 'Skills', href: '#skills', id: 'skills' },
-    { label: 'Projects', href: '#projects', id: 'projects' },
-    { label: 'Education', href: '#education', id: 'education' },
-    { label: 'Achievements', href: '#achievements', id: 'achievements' },
-    { label: 'Contact', href: '#contact', id: 'contact' },
+    { label: 'Home', href: isProjectsPage ? '/#home' : '#home', id: 'home', num: '01' },
+    { label: 'About', href: isProjectsPage ? '/#about' : '#about', id: 'about', num: '02' },
+    { label: 'Skills', href: isProjectsPage ? '/#skills' : '#skills', id: 'skills', num: '03' },
+    { label: 'Projects', href: '/projects', id: 'projects', num: '04', isRoute: true },
+    { label: 'Contact', href: isProjectsPage ? '/#contact' : '#contact', id: 'contact', num: '05' },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || isProjectsPage
           ? 'bg-[#0B172B]/85 backdrop-blur-md border-b border-[rgba(148,163,184,0.15)] py-3 shadow-lg shadow-black/25'
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
         {/* Monogram Logo */}
-        <a
-          href="#home"
+        <Link
+          to="/#home"
           className="group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#48E6C1] rounded-lg"
           aria-label="Babji Tata Home"
         >
@@ -71,17 +78,17 @@ export default function Navbar() {
           <span className="font-heading font-bold text-lg tracking-wider text-[#F1F5F9] group-hover:text-[#48E6C1] transition-colors">
             BT<span className="text-[#48E6C1]">.</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isActive = currentSection === link.id;
 
             return (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className={`group flex items-center gap-1.5 text-xs tracking-wider uppercase font-medium transition-colors py-1 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#48E6C1] rounded ${
                   isActive ? 'text-[#F1F5F9]' : 'text-[#94A3B8] hover:text-[#F1F5F9]'
                 }`}
@@ -101,29 +108,29 @@ export default function Navbar() {
                     }`}
                   />
                 </span>
-              </a>
+              </Link>
             );
           })}
 
-          {/* Resume Link */}
+          {/* Resume Direct Download Link */}
           <a
             href={personalInfo.resumePath}
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Developer_Resume.pdf"
             className="ml-2 inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3.5 py-1.5 rounded border border-[#48E6C1]/50 text-[#48E6C1] hover:bg-[#48E6C1]/10 hover:border-[#48E6C1] hover:shadow-[0_0_12px_rgba(72,230,193,0.25)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#48E6C1]"
+            title="Download Resume PDF"
           >
             <FileDown className="w-3.5 h-3.5" />
             <span>Resume</span>
           </a>
         </nav>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Hamburger Button & CV Download */}
         <div className="flex md:hidden items-center gap-2">
           <a
             href={personalInfo.resumePath}
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Developer_Resume.pdf"
             className="inline-flex items-center gap-1 text-[11px] font-mono font-medium px-2 py-1 rounded border border-[#48E6C1]/50 text-[#48E6C1] hover:bg-[#48E6C1]/10"
+            title="Download Resume PDF"
           >
             <FileDown className="w-3 h-3" />
             <span>CV</span>
@@ -143,26 +150,29 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#0B172B]/95 backdrop-blur-xl border-b border-[rgba(148,163,184,0.15)] px-6 py-6 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-2 text-sm uppercase tracking-wider font-medium py-2.5 border-b border-slate-800/60 transition-colors ${
-                  activeSection === link.id
-                    ? 'text-[#48E6C1] font-semibold'
-                    : 'text-[#F1F5F9] hover:text-[#48E6C1]'
-                }`}
-              >
-                <span className="font-mono text-[#48E6C1] text-xs">{link.num}.</span>
-                <span>{link.label}</span>
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = currentSection === link.id;
+
+              return (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-2 text-sm uppercase tracking-wider font-medium py-2.5 border-b border-slate-800/60 transition-colors ${
+                    isActive
+                      ? 'text-[#48E6C1] font-semibold'
+                      : 'text-[#F1F5F9] hover:text-[#48E6C1]'
+                  }`}
+                >
+                  <span className="font-mono text-[#48E6C1] text-xs">{link.num}.</span>
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
             <div className="pt-3">
               <a
                 href={personalInfo.resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
+                download="Developer_Resume.pdf"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 rounded border border-[#48E6C1] text-[#48E6C1] font-mono text-xs font-semibold hover:bg-[#48E6C1]/10 transition-colors flex items-center justify-center gap-2"
               >

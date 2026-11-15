@@ -180,15 +180,14 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
 
-              {/* Secondary Ghost Outline Button */}
+              {/* Secondary Ghost Outline Button: Direct Resume Download */}
               <a
                 href={personalInfo.resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
+                download="Developer_Resume.pdf"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-[#48E6C1]/40 bg-[#48E6C1]/5 text-[#F1F5F9] font-medium text-sm transition-all duration-300 hover:border-[#48E6C1] hover:text-[#48E6C1] hover:bg-[#48E6C1]/10 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#48E6C1] w-full sm:w-auto text-center"
               >
                 <FileText className="w-4 h-4 text-[#48E6C1]" />
-                <span>View Resume</span>
+                <span>Download Resume</span>
               </a>
             </motion.div>
 

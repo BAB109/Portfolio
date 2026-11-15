@@ -17,7 +17,7 @@ export const personalInfo = {
   email: "tatababji297@gmail.com",
   github: "https://github.com/BAB109",
   linkedin: "https://www.linkedin.com/in/babji-tata-044aa0363/",
-  leetcode: "https://leetcode.com/u/BAB109_1/",
+  leetcode: "https://leetcode.com/u/BAB109/",
   profileImage: "/images/profile.png",
   resumePath: "/files/Babji_resume.pdf",
   education: [
@@ -31,16 +31,6 @@ export const personalInfo = {
         "Active member of cybersecurity and coding clubs",
         "Participated in CBIT DDC Cybersecurity Capture The Flag (CTF) Competition",
         "Focus on Systems Programming, Database Architecture, and Advanced DSA"
-      ]
-    },
-    {
-      degree: "Intermediate Education (MPC)",
-      institution: "New Vision Junior College",
-      location: "Khammam, Telangana",
-      period: "2022 — 2024",
-      grade: "Strong Academic Foundation in Mathematics & Sciences",
-      highlights: [
-        "Excellence in Mathematics, Physics, and analytical problem solving"
       ]
     }
   ],
