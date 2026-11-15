@@ -1,12 +1,10 @@
-import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, FileText, Terminal } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import TypewriterText from '../ui/TypewriterText';
 import { personalInfo } from '../../data/config';
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const [imageError, setImageError] = useState(false);
 
   const bottomTechs = [
     'HTML5',
@@ -49,16 +47,16 @@ export default function Hero() {
     },
   };
 
-  const photoVariants = {
+  const avatarVariants = {
     hidden: {
-      opacity: shouldReduceMotion ? 1 : 0.85,
+      opacity: shouldReduceMotion ? 1 : 0.8,
       scale: shouldReduceMotion ? 1 : 0.98,
     },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: shouldReduceMotion ? 0.01 : 0.5,
+        duration: shouldReduceMotion ? 0.01 : 0.6,
         ease: 'easeOut',
       },
     },
@@ -69,29 +67,7 @@ export default function Hero() {
       id="home"
       className="relative min-h-[90vh] lg:min-h-screen pt-28 pb-12 flex flex-col justify-between overflow-hidden"
     >
-      {/* Mobile & Tablet Integrated Background Image Layer */}
-      {/* Contained strictly within the hero section (normal document flow, no fixed/sticky positioning) */}
-      <div
-        className="lg:hidden absolute inset-0 z-0 overflow-hidden pointer-events-none select-none"
-        aria-hidden="true"
-      >
-        {/* Profile photograph positioned toward the right side */}
-        <img
-          src={personalInfo.profileImage}
-          alt=""
-          className="absolute top-0 right-0 w-[75%] sm:w-[55%] h-full object-cover object-top opacity-30 filter contrast-[1.08] saturate-[1.05]"
-          loading="eager"
-        />
-
-        {/* Strong dark navy gradient overlay: fully dark on left where text lives, smoothly revealing photo on right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B172B] via-[#0B172B]/95 to-[#0B172B]/60" />
-
-        {/* Vertical gradient blends */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#0B172B] to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0B172B] via-[#0B172B]/90 to-transparent" />
-      </div>
-
-      {/* Ambient background glow accents */}
+      {/* ── Background Subtle Ambient Glows ───────────────────── */}
       <div
         className="absolute top-1/4 left-8 w-80 h-80 bg-[#48E6C1]/5 rounded-full blur-3xl pointer-events-none -z-10"
         aria-hidden="true"
@@ -101,13 +77,57 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Main Hero Container */}
+      {/* ── Background Visual Element: Avatar on the Right ────── */}
+      {/* Positioned on the right side across all viewports within hero's normal document flow (no fixed/sticky) */}
+      <motion.div
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none select-none w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[560px] xl:max-w-[620px] flex items-center justify-end pr-0 sm:pr-4 lg:pr-8 xl:pr-14"
+        variants={avatarVariants}
+        initial="hidden"
+        animate="visible"
+        aria-hidden="true"
+      >
+        {/* Soft Ambient Mint & Sky Glow behind avatar */}
+        <div
+          className="absolute w-64 sm:w-80 lg:w-96 h-64 sm:h-80 lg:h-96 rounded-full bg-gradient-to-tr from-[#48E6C1]/20 via-[#38BDF8]/15 to-transparent blur-3xl opacity-50 sm:opacity-70 lg:opacity-85 pointer-events-none"
+        />
+
+        {/* Avatar Graphic with Seamless Edge & Depth Blending */}
+        <div className="relative w-full flex items-center justify-end">
+          <img
+            src={personalInfo.profileImage}
+            alt=""
+            className="w-[75%] sm:w-[65%] md:w-[60%] lg:w-[85%] xl:w-[92%] max-h-[440px] sm:max-h-[500px] lg:max-h-[560px] object-contain object-right-bottom filter drop-shadow-[0_12px_30px_rgba(11,23,43,0.85)] opacity-35 sm:opacity-45 md:opacity-60 lg:opacity-100 transition-all duration-300"
+            loading="eager"
+            fetchpriority="high"
+          />
+
+          {/* Left subtle edge fade to blend smoothly into background */}
+          <div
+            className="absolute inset-y-0 left-0 w-24 sm:w-32 bg-gradient-to-r from-[#0B172B] to-transparent pointer-events-none"
+          />
+
+          {/* Mobile & Tablet dark gradient overlay for text readability */}
+          <div
+            className="lg:hidden absolute inset-0 bg-gradient-to-r from-[#0B172B] via-[#0B172B]/90 to-transparent pointer-events-none"
+          />
+
+          {/* Bottom edge fade: dissolves base into background & ticker */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0B172B] via-[#0B172B]/75 to-transparent pointer-events-none"
+          />
+
+          {/* Top edge subtle blend */}
+          <div
+            className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0B172B]/50 to-transparent pointer-events-none"
+          />
+        </div>
+      </motion.div>
+
+      {/* ── Main Foreground Content (z-20) ────────────────────── */}
       <div className="max-w-7xl mx-auto px-6 sm:px-8 w-full flex-1 flex items-center relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full py-6 sm:py-10">
-          
-          {/* Left Column (7 cols desktop / full width on mobile): Foreground Content */}
+        <div className="w-full max-w-2xl lg:max-w-2xl xl:max-w-3xl py-6 sm:py-10">
           <motion.div
-            className="w-full lg:col-span-7 flex flex-col items-start text-left z-20 relative"
+            className="flex flex-col items-start text-left"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -185,74 +205,10 @@ export default function Hero() {
               <span>140+ LeetCode Solved</span>
             </motion.div>
           </motion.div>
-
-          {/* Right Column (5 cols): Desktop Profile Photograph ONLY */}
-          {/* CRITICAL: Hidden on mobile/tablet (hidden lg:flex). Strictly normal document flow. */}
-          <div className="hidden lg:flex lg:col-span-5 justify-end z-20 w-full">
-            <motion.div
-              className="relative w-full max-w-[380px] lg:max-w-[420px]"
-              variants={photoVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Soft Ambient Glow behind the photo */}
-              <div
-                className="absolute -inset-4 bg-gradient-to-tr from-[#48E6C1]/15 via-[#38BDF8]/10 to-transparent rounded-3xl blur-2xl opacity-60 pointer-events-none"
-                aria-hidden="true"
-              />
-
-              {/* Photograph Container with Seamless Edge Blending */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.015]">
-                {!imageError ? (
-                  <>
-                    <img
-                      src={personalInfo.profileImage}
-                      alt={personalInfo.name}
-                      onError={() => setImageError(true)}
-                      className="w-full h-[460px] lg:h-[500px] object-cover object-top filter saturate-[1.05] contrast-[1.05]"
-                      loading="eager"
-                    />
-
-                    {/* Left edge subtle dark fade - blends portrait naturally into navy text column */}
-                    <div
-                      className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0B172B] to-transparent opacity-60 pointer-events-none"
-                      aria-hidden="true"
-                    />
-
-                    {/* Bottom edge fade - dissolves portrait into the background base */}
-                    <div
-                      className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0B172B] via-[#0B172B]/60 to-transparent pointer-events-none"
-                      aria-hidden="true"
-                    />
-
-                    {/* Top edge subtle vignette */}
-                    <div
-                      className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0B172B]/40 to-transparent pointer-events-none"
-                      aria-hidden="true"
-                    />
-                  </>
-                ) : (
-                  /* Fallback visual placeholder area without inventing an image */
-                  <div className="w-full h-[460px] lg:h-[500px] bg-[#101D32] border border-[rgba(148,163,184,0.15)] rounded-2xl flex flex-col items-center justify-center p-6 text-center">
-                    <div className="w-20 h-20 rounded-full bg-[#48E6C1]/10 border border-[#48E6C1]/30 flex items-center justify-center mb-4 text-[#48E6C1]">
-                      <Terminal className="w-8 h-8" />
-                    </div>
-                    <p className="font-heading text-lg font-bold text-[#F1F5F9]">
-                      {personalInfo.name}
-                    </p>
-                    <p className="font-mono text-xs text-[#94A3B8] mt-1">
-                      Software Engineer &amp; Backend Developer
-                    </p>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </div>
-
         </div>
       </div>
 
-      {/* Bottom Horizontal Tech Strip / Ticker matching reference design */}
+      {/* ── Bottom Horizontal Tech Strip / Ticker ──────────────── */}
       <div className="w-full border-t border-[rgba(148,163,184,0.15)] bg-[#0B172B]/85 backdrop-blur-md pt-3.5 pb-2 mt-6 relative z-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <div className="flex items-center justify-between gap-6 overflow-x-auto no-scrollbar py-1 text-xs font-mono text-[#94A3B8]">
