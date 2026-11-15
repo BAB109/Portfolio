@@ -17,7 +17,7 @@ export const personalInfo = {
   email: "tatababji297@gmail.com",
   github: "https://github.com/BAB109",
   linkedin: "https://www.linkedin.com/in/babji-tata-044aa0363/",
-  leetcode: "https://leetcode.com/u/BAB109/",
+  leetcode: "https://leetcode.com/u/bab109_1/",
   profileImage: "/images/profile.png",
   resumePath: "/files/Babji_resume.pdf",
   education: [

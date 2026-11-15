@@ -36,7 +36,7 @@ export const codingMilestones = [
     description:
       "Consistent practice in algorithmic problem solving covering Arrays, Strings, Linked Lists, Trees, Graphs, Two Pointers, and Dynamic Programming with an emphasis on optimal time and space complexity.",
     tags: ["Algorithms", "Data Structures", "C++", "Optimization"],
-    profileUrl: "https://leetcode.com/u/BAB109/",
+    profileUrl: "https://leetcode.com/u/bab109_1/",
     verified: true
   }
 ];

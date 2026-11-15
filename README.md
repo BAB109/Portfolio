@@ -1,8 +1,8 @@
 # Babji Tata — Developer Portfolio
 
-A dark-themed developer portfolio engineered with **React 19**, **Vite**, **Tailwind CSS v4**, and **Framer Motion**.
+A modern developer portfolio engineered with **React 19**, **Vite**, **Tailwind CSS v4**, and **Framer Motion**.
 
-Featuring deep navy palettes, mint/turquoise accents, an animated interactive particle constellation background, typewriter effect, asymmetric 3D flip project cards, a vertical academic timeline, and responsive design across desktop, tablet, and mobile.
+Featuring deep navy palettes, mint/turquoise accents, an animated interactive particle constellation background, typewriter effect, transparent hero background avatar, clean non-flip project cards, vertical academic timeline, and a dedicated **All Projects Catalog (`/projects`)** with real-time search and category filtering.
 
 ---
 
@@ -12,11 +12,12 @@ Featuring deep navy palettes, mint/turquoise accents, an animated interactive pa
 - [Tech Stack & Architecture](#-tech-stack--architecture)
 - [Directory Structure](#-directory-structure)
 - [Getting Started](#-getting-started)
+- [Routing & Navigation Architecture](#-routing--navigation-architecture)
 - [How to Modify Content (No JSX editing needed)](#-how-to-modify-content)
-  - [Personal Info & Bio](#1-personal-info-bio--social-links)
-  - [Skills & Categories](#2-skills-categories)
-  - [Projects & 3D Cards](#3-projects--3d-cards)
-  - [Education & Milestones](#4-education--milestones)
+  - [Personal Info, Bio & Social Links](#1-personal-info-bio--social-links)
+  - [Skills & Vertical Categories](#2-skills--vertical-categories)
+  - [Projects & Catalog (Homepage + All Projects)](#3-projects--catalog-homepage--all-projects)
+  - [Education & Coding Milestones](#4-education--coding-milestones)
   - [Replacing Images & Resume](#5-replacing-images--resume)
 - [How to Add a New Section (Step-by-Step)](#-how-to-add-a-new-section)
 - [Design System & Theme Variables](#-design-system--theme-variables)
@@ -30,13 +31,14 @@ Featuring deep navy palettes, mint/turquoise accents, an animated interactive pa
 - **Live Flagship Project (DSA Vault):** [dsa-vault-a4zd.vercel.app](https://dsa-vault-a4zd.vercel.app/)
 - **GitHub:** [github.com/BAB109](https://github.com/BAB109)
 - **LinkedIn:** [linkedin.com/in/babji-tata](https://www.linkedin.com/in/babji-tata-044aa0363/)
-- **LeetCode:** [leetcode.com/u/BAB109/](https://leetcode.com/u/BAB109/)
+- **LeetCode:** [leetcode.com/u/bab109_1/](https://leetcode.com/u/bab109_1/)
 
 ---
 
 ## 🛠️ Tech Stack & Architecture
 
 - **Core:** React 19 + Vite 8
+- **Routing:** Lightweight zero-dependency HTML5 History API Router (`src/router.jsx`)
 - **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`)
 - **Animation:** Framer Motion (`framer-motion`) + HTML5 Canvas
 - **Icons:** Lucide React (`lucide-react`) + Custom SVG Icons (`src/components/ui/Icons.jsx`)
@@ -54,7 +56,7 @@ Featuring deep navy palettes, mint/turquoise accents, an animated interactive pa
 portfolio/
 ├── index.html                   # HTML entry point, SEO meta, Open Graph, Google Fonts
 ├── package.json                 # Dependencies & build scripts
-├── vercel.json                  # SPA routing fallback & HTTP security headers
+├── vercel.json                  # SPA routing rewrite & HTTP security headers
 ├── vite.config.js               # Vite + React + Tailwind v4 configuration
 │
 ├── public/
@@ -64,41 +66,45 @@ portfolio/
 │   ├── files/
 │   │   └── Babji_resume.pdf     # Downloadable resume PDF
 │   └── images/
-│       └── profile.jpg          # Profile photograph (used in Hero)
+│       ├── profile.png          # Transparent hero background avatar
+│       └── profile.jpeg         # Original profile photo
 │
 └── src/
-    ├── App.jsx                  # Main application orchestrator
+    ├── App.jsx                  # Main application orchestrator & router view switcher
     ├── index.css                # Design system variables & custom scrollbar
     ├── main.jsx                 # React root renderer
+    ├── router.jsx               # Zero-dependency HTML5 router (RouterProvider, useRouter, Link)
+    │
+    ├── pages/
+    │   └── AllProjects.jsx      # Dedicated /projects catalog with search & category filters
     │
     ├── data/                    # 💡 ALL CONTENT IS MANAGED HERE
     │   ├── config.js            # Bio, contact, education, statistics
-    │   ├── skills.js            # Core / Familiar / Learning skill tiers
-    │   ├── projects.js          # The 4 projects, tech stacks, links & highlights
-    │   └── milestones.js        # Timeline & certifications
+    │   ├── skills.js            # Core / Familiar / Learning vertical skill tiers
+    │   ├── projects.js          # Centralized catalog of all 15 projects & homepage selection
+    │   ├── milestones.js        # CBIT Education timeline & 140+ LeetCode milestones
+    │   └── achievements.js      # Certifications & competition details
     │
     └── components/
         ├── layout/
-        │   ├── Navbar.jsx       # Fixed header with Roman numeral scroll-spy (I - VII)
-        │   └── Footer.jsx       # Minimal footer with dynamic year & quick links
+        │   ├── Navbar.jsx       # Fixed header with active route tracking & resume download
+        │   └── Footer.jsx       # Minimal footer with verified links & scroll-to-top
         │
-        ├── sections/            # Individual portfolio sections
-        │   ├── Hero.jsx         # Section 00: Photo, Typewriter, CTAs
-        │   ├── About.jsx        # Section 01: Bio, Quick pillars, Highlights
-        │   ├── Skills.jsx       # Section 02: 3-tier skills cards & pillars banner
-        │   ├── Projects.jsx     # Section 03: Asymmetric grid wrapper
-        │   ├── Education.jsx    # Section 04: Academic vertical timeline
-        │   ├── Achievements.jsx # Section 05: LeetCode + Certifications grid
-        │   ├── Contact.jsx      # Section 06: Email, GitHub, LinkedIn
+        ├── sections/            # Homepage sections
+        │   ├── Hero.jsx         # Section 00: Transparent avatar backdrop, Typewriter, CTAs
+        │   ├── About.jsx        # Section 01: Engineering bio, pillars, highlights
+        │   ├── Skills.jsx       # Section 02: Vertical categories with horizontal tech chips
+        │   ├── Projects.jsx     # Section 03: Asymmetric grid with modern non-flip cards
+        │   ├── Education.jsx    # Section 04: Dedicated CBIT B.Tech academic timeline
+        │   ├── Achievements.jsx # Section 05: 140+ LeetCode card + Certifications grid
+        │   ├── Contact.jsx      # Section 06: Direct email (mailto:), GitHub, LinkedIn
         │   │
-        │   └── projects/        # 3D Flip Card Components
-        │       ├── ProjectCard.jsx       # 3D Y-axis flip container
-        │       ├── ProjectCardFront.jsx  # Front face (minimal, tags + title)
-        │       └── ProjectCardBack.jsx   # Back face (description, features, links)
+        │   └── projects/        # Project Card Components
+        │       └── ProjectCard.jsx       # Modern non-flip card with directly visible details
         │
         └── ui/                  # Reusable UI primitives
             ├── Button.jsx               # Button variants (primary, outline, ghost)
-            ├── ConstellationCanvas.jsx  # Particle constellation background
+            ├── ConstellationCanvas.jsx  # Interactive particle constellation background
             ├── Icons.jsx                # Custom SVGs (GithubIcon, LinkedinIcon)
             ├── SectionTitle.jsx         # Numbered section header
             └── TypewriterText.jsx       # Animated role typing effect
@@ -142,13 +148,29 @@ npm run preview
 npm run lint
 ```
 
-Runs Oxlint across all files in milliseconds.
+Runs Oxlint across all 27 files in milliseconds (`0 warnings, 0 errors`).
+
+---
+
+## 🧭 Routing & Navigation Architecture
+
+The project features a **zero-dependency HTML5 History API Router** in [`src/router.jsx`](file:///c:/Users/tatab/OneDrive/Desktop/BAB_Portfolio/portfolio/src/router.jsx):
+
+- **Homepage (`/`)**: Renders `Navbar`, `Hero`, `About`, `Skills`, `Projects`, `Education`, `Achievements`, `Contact`, and `Footer`.
+- **All Projects Catalog (`/projects`)**: Renders `Navbar`, `AllProjects`, and `Footer`.
+- **Navbar Links**: `Home`, `About`, `Skills`, `Projects`, `Contact`.
+  - Clicking `Projects` routes to `/projects`.
+  - Clicking any section link from `/projects` (e.g. `Home` or `About`) smoothly returns to `/#home` or `/#about`.
+- **Direct Link & Refresh Support**: Direct access to `https://your-domain.com/projects` or refreshing the page works seamlessly without 404 errors due to the rewrite rule in `vercel.json`:
+  ```json
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  ```
 
 ---
 
 ## ✏️ How to Modify Content
 
-All text, links, projects, and skills are decoupled into `src/data/` files. **You do not need to touch JSX components to update text, links, or projects.**
+All text, links, projects, and skills are decoupled into `src/data/` files. **You do not need to edit JSX components to update text, links, or projects.**
 
 ### 1. Personal Info, Bio & Social Links
 
@@ -157,6 +179,7 @@ File: [`src/data/config.js`](file:///c:/Users/tatab/OneDrive/Desktop/BAB_Portfol
 ```js
 export const personalInfo = {
   name: "Babji Tata",
+  formalName: "BABJI TATA",
   roleTitles: [
     "Software Engineer",
     "Backend Developer",
@@ -172,24 +195,24 @@ export const personalInfo = {
   email: "tatababji297@gmail.com",
   github: "https://github.com/BAB109",
   linkedin: "https://www.linkedin.com/in/babji-tata-044aa0363/",
-  leetcode: "https://leetcode.com/u/BAB109/",
-  profileImage: "/images/profile.jpg",
+  leetcode: "https://leetcode.com/u/bab109_1/",
+  profileImage: "/images/profile.png",
   resumePath: "/files/Babji_resume.pdf"
 };
 ```
 
 ---
 
-### 2. Skills & Categories
+### 2. Skills & Vertical Categories
 
 File: [`src/data/skills.js`](file:///c:/Users/tatab/OneDrive/Desktop/BAB_Portfolio/portfolio/src/data/skills.js)
 
-Skills are categorized into 3 tiers:
+Skills are organized into **vertically stacked tiers** with horizontal wrapping chips:
 - **Core Skills** (`#48E6C1` Mint)
 - **Familiar With** (`#38BDF8` Sky Blue)
 - **Currently Learning** (`#A78BFA` Lavender)
 
-To add a new skill to a tier, add an object to its `skills` array:
+To add a new skill to any category, add an object to its `skills` array:
 
 ```js
 {
@@ -201,22 +224,30 @@ To add a new skill to a tier, add an object to its `skills` array:
 
 ---
 
-### 3. Projects & 3D Cards
+### 3. Projects & Catalog (Homepage + All Projects)
 
 File: [`src/data/projects.js`](file:///c:/Users/tatab/OneDrive/Desktop/BAB_Portfolio/portfolio/src/data/projects.js)
 
-Each project object controls both the front and back of its 3D card:
+All 15 repositories are defined in the `allProjects` array across 5 categories:
+1. `Featured Projects` (`filterCategory: "featured"`)
+2. `Full-Stack Projects` (`filterCategory: "fullstack"`)
+3. `Backend & API Projects` (`filterCategory: "backend"`)
+4. `Learning & Experimental Projects` (`filterCategory: "experiments"`)
+5. `Practice Projects` (`filterCategory: "experiments"`)
 
 ```js
 {
   id: "dsa-vault",
   title: "DSA Vault",
   tagline: "Algorithmic Problem Tracking & Revision Platform",
-  featured: true,               // true = Flagship 2x2 large card
+  category: "Featured Projects",
+  filterCategory: "featured",
+  featured: true,               // true = Flagship 2x2 card on homepage
+  homepage: true,               // true = Also rendered on homepage selected work grid
   badge: "FEATURED PROJECT",
   accent: "#48E6C1",
-  status: "Live Production",    // or "Completed", "Learning / In Development"
-  description: "Detailed description shown on the BACK of the card...",
+  status: "Live Production",    // or "Completed", "In Development", "Experimental"
+  description: "Comprehensive description visible directly on the card...",
   features: [
     "Feature 1...",
     "Feature 2...",
@@ -228,37 +259,37 @@ Each project object controls both the front and back of its 3D card:
 }
 ```
 
-> **Note on Live Demos:** If `liveUrl: null`, the back of the card only renders the GitHub button.
+- **Homepage Projects:** Automatically derived using `homepageProjects = allProjects.filter(p => p.homepage)`.
+- **Live Demo Link:** If `liveUrl: null`, the card only displays the `Source Code` button.
 
 ---
 
-### 4. Education & Milestones
+### 4. Education & Coding Milestones
 
 File: [`src/data/milestones.js`](file:///c:/Users/tatab/OneDrive/Desktop/BAB_Portfolio/portfolio/src/data/milestones.js)
 
-- **`educationTimeline`**: Add or modify degrees, grades, duration, and coursework pills.
-- **`codingMilestones`**: Update LeetCode solved count, languages, and profile link.
-- **`certificationsAndActivities`**: Add new certifications (NPTEL, Google Cloud, CTFs, Hackathons).
+- **`educationTimeline`**: Displays your verified academic degrees (CBIT B.Tech CSE, CGPA 7.91, coursework, highlights).
+- **`codingMilestones`**: LeetCode milestone card (`140+ Problems Solved`, metric callout, profile URL `https://leetcode.com/u/bab109_1/`).
+- **`certificationsAndActivities`**: NPTEL Generative AI, Google Cloud Vertex AI badge, and CTF participation.
 
 ---
 
 ### 5. Replacing Images & Resume
 
-1. **Profile Photograph:**
-   - Place your image in: `portfolio/public/images/profile.jpg`
-   - Keep the filename `profile.jpg`, or update the path in `src/data/config.js` (`profileImage: "/images/your-photo.jpg"`).
-   - Recommended: Portrait aspect ratio (3:4 or 4:5), compressed JPEG under 150 KB.
-2. **Resume PDF:**
-   - Replace `portfolio/public/files/Babji_resume.pdf` with your updated PDF.
-   - All "Resume", "CV", and "Download" buttons automatically link to this file.
+1. **Avatar Image:**
+   - Place your transparent PNG image in: `portfolio/public/images/profile.png`
+   - It renders seamlessly in the background on the right side of the Hero section.
+2. **Resume PDF (Direct Download):**
+   - Place your updated PDF in: `portfolio/public/files/Babji_resume.pdf`
+   - All "Resume", "CV", and "Download Resume" buttons across the Navbar, Hero, and Footer are configured with `download="Developer_Resume.pdf"` for instant download.
 3. **Favicon:**
-   - Update `portfolio/public/favicon.svg` with your custom SVG logo.
+   - Update `portfolio/public/favicon.svg` with your custom SVG icon.
 
 ---
 
 ## ➕ How to Add a New Section
 
-Follow these 3 simple steps to add a new section (e.g. `Experience` or `Testimonials`):
+To add a new section (e.g. `Certificates` or `Experience`):
 
 ### Step 1: Create the Component
 
@@ -273,7 +304,6 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 relative z-10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        {/* Section Header */}
         <div className="mb-14">
           <p className="font-mono text-[#48E6C1] text-xs tracking-[0.2em] uppercase mb-3">
             07 — Experience
@@ -286,7 +316,6 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* Your content cards here */}
         <div className="p-6 rounded-2xl bg-[#101D32]/70 border border-[rgba(148,163,184,0.15)]">
           <p className="text-[#94A3B8]">Content goes here...</p>
         </div>
@@ -298,12 +327,12 @@ export default function Experience() {
 
 ### Step 2: Register in `App.jsx`
 
-Open `src/App.jsx`, import your component, and place it inside `<main>`:
+Open `src/App.jsx`, import your component, and place it inside the homepage `<main>`:
 
 ```jsx
 import Experience from './components/sections/Experience';
 
-// Inside App():
+// Inside MainApp():
 <main className="relative z-10">
   <Hero />
   <About />
@@ -326,7 +355,7 @@ Open `src/components/layout/Navbar.jsx`:
    ```
 2. Add the link to `navLinks`:
    ```js
-   { num: 'VII', label: 'Experience', href: '#experience', id: 'experience' },
+   { label: 'Experience', href: isProjectsPage ? '/#experience' : '#experience', id: 'experience', num: '06' },
    ```
 
 ---
@@ -347,14 +376,10 @@ All colors and visual tokens are defined in [`src/index.css`](file:///c:/Users/t
 }
 ```
 
-### Tailwind Helper Classes
-
+### Typography Classes:
 - `.font-heading` → Space Grotesk
 - `.font-mono` → JetBrains Mono
-- `.perspective-1000` → 3D Perspective container (1000px)
-- `.transform-style-3d` → CSS `preserve-3d`
-- `.backface-hidden` → CSS `backface-visibility: hidden`
-- `.rotate-y-180` → Rotates card 180° around Y-axis
+- Standard text → Inter
 
 ---
 
@@ -365,27 +390,23 @@ All colors and visual tokens are defined in [`src/index.css`](file:///c:/Users/t
 If `npm run dev` fails because port `5173` is taken:
 
 ```powershell
-# Specify an alternative port
 npm run dev -- --port 5174
 ```
 
 ### 2. Missing Icons (`lucide-react`)
 
-`lucide-react` does **not** export brand logos like `Github` or `Linkedin`.
-- **Always import `GithubIcon` or `LinkedinIcon` from `../ui/Icons`** instead of `lucide-react`.
-- All standard interface icons (`Terminal`, `Database`, `Server`, `ExternalLink`, `Mail`, `Calendar`, etc.) work directly from `lucide-react`.
+`lucide-react` does **not** include brand icons like `Github` or `Linkedin`.
+- **Always import `GithubIcon` or `LinkedinIcon` from `src/components/ui/Icons.jsx`**.
+- All standard interface icons (`Terminal`, `Database`, `Server`, `ExternalLink`, `Mail`, `FileDown`, `Search`, etc.) import directly from `lucide-react`.
 
-### 3. 3D Project Card not flipping on mobile
+### 3. Constellation particle canvas performance
 
-- On desktop, cards flip on **hover** (`onMouseEnter` / `onMouseLeave`).
-- On touch devices / mobile, cards flip on **tap** (`onClick`).
-- All links inside the back of the card have `e.stopPropagation()` so tapping "GitHub" or "Live Demo" navigates directly without accidentally closing the card.
+- `ConstellationCanvas.jsx` includes an automatic `document.visibilitychange` listener that cancels `requestAnimationFrame` when the browser tab is hidden or minimized.
+- Automatically respects `prefers-reduced-motion` settings.
 
-### 4. Background constellation animation freezing or high battery usage
+### 4. Direct download behavior for Resume
 
-- `ConstellationCanvas.jsx` includes an automatic `document.visibilitychange` listener.
-- When the tab is switched or minimized, it cancels `requestAnimationFrame` to conserve battery. It resumes instantly when the tab becomes active.
-- If a user has `prefers-reduced-motion` enabled in their OS, it automatically renders static particles without continuous animation.
+All resume links are configured with `download="Developer_Resume.pdf"` and point to `/files/Babji_resume.pdf`. Note that the HTML5 `download` attribute is honored when serving the file from the same origin or via `localhost`/production domain.
 
 ---
 
@@ -395,25 +416,22 @@ npm run dev -- --port 5174
 
 1. Push your code to GitHub:
    ```powershell
-   git init
    git add .
-   git commit -m "feat: complete developer portfolio"
-   git branch -M main
-   git remote add origin https://github.com/BAB109/<repo-name>.git
-   git push -u origin main
+   git commit -m "feat: complete portfolio with /projects archive and ui refinements"
+   git push origin main
    ```
 2. Log in to [vercel.com](https://vercel.com).
-3. Click **"Add New"** → **"Project"**.
-4. Import your GitHub repository.
-5. Vercel automatically detects **Vite** and uses:
+3. Import your GitHub repository.
+4. Settings:
+   - **Framework:** Vite
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
-6. Click **Deploy**.
+5. Click **Deploy**.
 
-The included `vercel.json` ensures that single-page routing (`/`) and security headers work out of the box.
+The included `vercel.json` ensures that single-page routing (`/` and `/projects`) works without 404 errors.
 
 ---
 
 ## 📜 License
 
-Created by **Babji Tata** &bull; [GitHub](https://github.com/BAB109) &bull; [LinkedIn](https://www.linkedin.com/in/babji-tata-044aa0363/)
+Created by **Babji Tata** &bull; [GitHub](https://github.com/BAB109) &bull; [LinkedIn](https://www.linkedin.com/in/babji-tata-044aa0363/) &bull; [LeetCode](https://leetcode.com/u/bab109_1/)
